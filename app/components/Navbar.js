@@ -24,6 +24,7 @@ const Navbar = () => {
                 <div className='basis-2/4 grid place-items-center'><h3>EasyCart</h3></div>
                 <div className='basis-1/4 grid place-items-end items-center'>
                     <small>
+                        <b>{cartItems.length}</b>
                         {amount}
                         {total.toFixed(2)}
                     </small>
