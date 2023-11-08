@@ -1,10 +1,12 @@
 "use client"
-
+import dynamic from 'next/dynamic';
 import { getShopItems, setCartItems, clearCart, getItems, removeItem, toggleQuantity, calculateTotal } from '@/lib/features/cart/cartSlice';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import Image from 'next/image'
-
+import { Button } from '@mui/material';
+const AddShoppingCartIcon = dynamic(() => import('@mui/icons-material//AddShoppingCart'));
+const DeleteOutlineIcon = dynamic(() => import('@mui/icons-material/DeleteOutline'));
 export default function CardContainer() {
     const dispatch = useDispatch();
     const { amount, shopItems, cartItems } = useSelector((store: any) => store.cart)
@@ -37,10 +39,23 @@ export default function CardContainer() {
                             ₱{x.price}
                         </div>
                         <div className='basis-1/2 text-end'>
-                            <button onClick={() => {
-                                dispatch(setCartItems({id:x.id}))
-                            }}
-                                className='bg-black hover:bg-gray-600 text-white active:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 px-2'>Add to Cart</button>
+                            {!x.isAdded &&
+                                <Button onClick={() => {
+                                    dispatch(setCartItems({ id: x.id }))
+                                }}
+                                    className='bg-black hover:bg-gray-600 text-white active:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 px-2'>
+                                    <AddShoppingCartIcon style={{ fontSize: '17px' }} />
+                                </Button>
+                            }
+                            {x.isAdded &&
+                                <Button onClick={() => {
+                                    dispatch(removeItem(x.id))
+                                }}
+                                    className='bg-white border border-gray-300 text-dark hover:bg-black hover:text-white active:bg-black px-2'>
+                                    <DeleteOutlineIcon style={{ fontSize: '17px' }} />
+                                </Button>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -48,7 +63,14 @@ export default function CardContainer() {
         </section>
     </>
 }
-{/* <em>{x.quantity}</em>
+{/* 
+TODO:
+If the item was added, replace "Add to Cart" with "Remove" or ShopIcon to TrashIcon
+Add, add to favorites
+Add modal for current cart
+Typescript bro
+
+<em>{x.quantity}</em>
                     <b>{x.supply} Left</b>
                     <button onClick={() => {
                         dispatch(toggleQuantity({
