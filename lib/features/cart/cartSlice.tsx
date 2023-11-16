@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import cartState from "@/app/types/CartState";
 
 export const getItems = async () => {
     
@@ -7,7 +7,7 @@ export const getItems = async () => {
         method: 'GET'
     });
     const data = await response.json();
-    return data.map((x) => {
+    return data.map((x:any) => {
         return {
             ...x,
             price:x.price * 56,
@@ -19,15 +19,14 @@ export const getItems = async () => {
 };
 
 
-const initialState = {
-    shopItems:[],
-    cartItems:[],
-    amount:0,
-    total:0,
-    showCart:false,
-    isLoading:true
+const initialState:cartState = {
+    shopItems: [],
+    cartItems: [],
+    amount: 0,
+    total: 0,
+    showCart: false,
+    isLoading: true
 }
-
 const cartSlice = createSlice({
     name:'cart',
     initialState,

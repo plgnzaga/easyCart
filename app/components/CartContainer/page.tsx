@@ -5,11 +5,17 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import Image from 'next/image'
 import { Button } from '@mui/material';
+import cartState from '@/app/types/CartState';
 const AddShoppingCartIcon = dynamic(() => import('@mui/icons-material//AddShoppingCart'));
 const DeleteOutlineIcon = dynamic(() => import('@mui/icons-material/DeleteOutline'));
 export default function CardContainer() {
     const dispatch = useDispatch();
-    const { amount, shopItems, cartItems } = useSelector((store: any) => store.cart)
+
+    
+
+    const { amount, shopItems, cartItems } = useSelector((store: {
+        cart:cartState
+    }) => store.cart)
 
 
     const fetchData = async () => {
@@ -29,7 +35,8 @@ export default function CardContainer() {
 
     return <>
         <section className='grid grid-cols-3 gap-4 my-10'>
-            {shopItems.map((x: any, index: number) =>
+            
+            {shopItems?.map((x: any, index: number) =>
                 <div key={index} className='cartItem'>
                     <Image src={x.image} width={200} height={200} loading="lazy"
                         alt={`Picture of ${x.title}`} className='aspect-square mix-blend-multiply object-contain my-0 mx-auto' />
@@ -65,7 +72,6 @@ export default function CardContainer() {
 }
 {/* 
 TODO:
-If the item was added, replace "Add to Cart" with "Remove" or ShopIcon to TrashIcon
 Add, add to favorites
 Add modal for current cart
 Typescript bro
