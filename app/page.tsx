@@ -8,7 +8,9 @@ export default function Home() {
     <html> <body>
       <main className="h-dvh">
         <Navbar />
-        <CartContainer />
+        <div className="wrapper my-0 mx-auto">
+          <CartContainer />
+        </div>
       </main>
     </body>
     </html>

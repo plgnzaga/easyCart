@@ -92,18 +92,31 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: snow;
 }
 
 a {
   color: inherit;
   text-decoration: none;
 }
+
+.wrapper{
+  max-width: 900px;
+  padding-inline: 1rem;
+}
+
+.cartItem{
+  background:#f3f3f3;
+}
+.cartItem img{
+  padding:1rem;
+}
+
+.cartItem .other-details{
+  background:white;
+  padding:1rem;
+}
+
 
 @media (prefers-color-scheme: dark) {
   html {
